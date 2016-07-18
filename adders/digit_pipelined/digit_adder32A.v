@@ -397,7 +397,7 @@ wire [31:0] Acomp, Bcomp;
 
 //build A input buffer close with file read
 for (i=0; i<32; i=i+1) begin
-THnotN  tbb3(Aenable[i], sumcarrycomp[i], init);
+THnotN  tbb3(Aenable[i], sumcarrycompout[i], init);
 TH22N  ob4 (Ain[i][0], fileA[i][0], Aenable[i], init);
 TH22N  ob5 (Ain[i][1], fileA[i][1], Aenable[i], init);
 TH12 u11 (Acomp[i], Ain[i][1], Ain[i][0]);  // auto consume sum
@@ -405,7 +405,7 @@ end
 
 //build B input buffer close with file read
 for (i=0; i<32; i=i+1) begin
-THnotN  tbb2(Benable[i], sumcarrycomp[i], init);
+THnotN  tbb2(Benable[i], sumcarrycompout[i], init);
 TH22N  ob2 (Bin[i][0], fileB[i][0], Benable[i], init);
 TH22N  ob3 (Bin[i][1], fileB[i][1], Benable[i], init);
 TH12 u10 (Bcomp[i], Bin[i][1], Bin[i][0]);  // auto consume sum
@@ -420,12 +420,12 @@ wire [1:0] sum [31:0];
 wire [1:0] carry [32:0];
 
 // 16 bit ripple carry adder
-THnotN  u0(carry[0][0], sumcomp[0], init); // auto produce carryin
+THnotN  u0(carry[0][0], carryCOMP[0], init); // auto produce carryin
 assign carry[0][1] = 1'b0; // auto produce carryin
 
 //  add
 for (i=0; i<32; i=i+1) begin
-  fulladdA ci (sum[i][1:0], carry[i+1][1:0], Ain[i][1:0], Bin[i][1:0], carry[i][1:0]);
+  fulladdA ci (sum[i][1:0], sumcomp[i], carry[i+1][1:0], carryCOMP[i+1], Ain[i][1:0], Bin[i][1:0], sumcarrycompout[i], carry[i][1:0], carryCOMP[i], init);
 end
 
 ///// Circuit Under Test
@@ -434,19 +434,20 @@ end
 
 wire [63:0] displaysum;
 wire carrycomp;
-wire [32:0] sumcomp;
-wire [31:0] sumcarrycomp, sumcarrycomptest, Oenable;
+wire [31:0] sumcomp;
+wire [32:0] carryCOMP, sumcarrycomptest;
+wire [31:0] Oenable, sumcarrycompout;
 wire [1:0] sumout [31:0];
 //build output buffer close with input buffer
 
 for (i=0; i<32; i=i+1) begin
-THnotN  tbb4(Oenable[i], sumcarrycomp[i], init);
+THnotN  tbb4(Oenable[i], sumcomp[i], init);
 TH22  ob0 (sumout[i][0], sum[i][0], Oenable[i]);
 TH22  ob1 (sumout[i][1], sum[i][1], Oenable[i]);
 TH12 u3 (sumcomp[i], sumout[i][1], sumout[i][0]);  // auto consume sum
-TH22 u4 (sumcarrycomp[i], sumcomp[i], sumcomp[i+1]);  // ha closure
+//TH22 u4 (sumcarrycompin[i], sumcomp[i], sumcomp[i+1]);  // ha closure
 end
-TH12 u3 (sumcomp[32], carry[31][0], carry[31][1]);  // auto consume sum
+TH12 u3 (carryCOMP[32], carry[32][0], carry[32][1]);  // auto consume sum
 
    for (i=0; i<32; i=i+1) begin
 assign displaysum[2*i+1] = sumout[i][1];

@@ -2,102 +2,17 @@
 
 
 /////////////////////// 
-//// THXORE NCL-UDP
-//// 26. Z = ABE + CDE        LDD notation
-//// {[A, B, E], [C, D, E]} -> Z  flow notation
+//// THANDE NCL-UDP
+//// 27. Z = ABE + BCE + ADE        LDD notation
+//// {[A, B, E], [B, C, E], [A, D, E]} -> Z  flow notation
 //// Defined explicitly for full adder B integration
 /////////////////////// 
-module THXORE(Z,A,B,C,D,E);
+module THANDE(Z,A,B,C,D,E);
 output Z;
 input A, B, C, D, E;
-   THXOREP #60 (Z,A,B,C,D,E);
+   THANDEP #60 (Z,A,B,C,D,E);
 endmodule
-primitive THXOREP(Z,A,B,C,D,E);
-output Z;
-input A, B, C, D, E;
-reg Z;
-initial Z = 1'b0;
-table
-// A B C D : Z : Z+         
-0  0  0  0  0 : ? : 0;
-1  0  0  0  0 : 0 : 0;
-0  1  0  0  0 : 0 : 0;
-1  1  0  0  0 : 0 : 0;
-0  0  1  0  0 : 0 : 0;
-1  0  1  0  0 : 0 : 0;
-0  1  1  0  0 : 0 : 0;
-1  1  1  0  0 : 0 : 0;
-0  0  0  1  0 : 0 : 0;
-1  0  0  1  0 : 0 : 0;
-0  1  0  1  0 : 0 : 0;
-1  1  0  1  0 : 0 : 0;
-0  0  1  1  0 : 0 : 0;
-1  0  1  1  0 : 0 : 0;
-0  1  1  1  0 : 0 : 0;
-1  1  1  1  0 : 0 : 0;
-0  0  0  0  1 : 0 : 0;
-1  0  0  0  1 : 0 : 0;
-0  1  0  0  1 : 0 : 0;
-1  1  0  0  1 : 0 : 1;
-0  0  1  0  1 : 0 : 0;
-1  0  1  0  1 : 0 : 0;
-0  1  1  0  1 : 0 : 0;
-1  1  1  0  1 : 0 : 1;
-0  0  0  1  1 : 0 : 0;
-1  0  0  1  1 : 0 : 0;
-0  1  0  1  1 : 0 : 0;
-1  1  0  1  1 : 0 : 1;
-0  0  1  1  1 : 0 : 1;
-1  0  1  1  1 : 0 : 1;
-0  1  1  1  1 : 0 : 1;
-1  1  1  1  1 : ? : 1;
-0  0  0  0  0 : ? : 0;
-1  0  0  0  0 : 1 : 1;
-0  1  0  0  0 : 1 : 1;
-1  1  0  0  0 : 1 : 1;
-0  0  1  0  0 : 1 : 1;
-1  0  1  0  0 : 1 : 1;
-0  1  1  0  0 : 1 : 1;
-1  1  1  0  0 : 1 : 1;
-0  0  0  1  0 : 1 : 1;
-1  0  0  1  0 : 1 : 1;
-0  1  0  1  0 : 1 : 1;
-1  1  0  1  0 : 1 : 1;
-0  0  1  1  0 : 1 : 1;
-1  0  1  1  0 : 1 : 1;
-0  1  1  1  0 : 1 : 1;
-1  1  1  1  0 : ? : 1;
-0  0  0  0  1 : ? : 1;
-1  0  0  0  1 : 1 : 1;
-0  1  0  0  1 : 1 : 1;
-1  1  0  0  1 : 1 : 1;
-0  0  1  0  1 : 1 : 1;
-1  0  1  0  1 : 1 : 1;
-0  1  1  0  1 : 1 : 1;
-1  1  1  0  1 : 1 : 1;
-0  0  0  1  1 : 1 : 1;
-1  0  0  1  1 : 1 : 1;
-0  1  0  1  1 : 1 : 1;
-1  1  0  1  1 : 1 : 1;
-0  0  1  1  1 : 1 : 1;
-1  0  1  1  1 : 1 : 1;
-0  1  1  1  1 : 1 : 1;
-1  1  1  1  1 : ? : 1;
-endtable
-endprimitive
-
-/////////////////////// 
-//// TH45W2 NCL-UDP
-//// 30. Z = ABE + ACE + ADE + BCDE              LDD notation
-//// {[A, B, E], [A, C, E], [A, D, E], [B, C, D, E]} -> Z  flow notation
-//// Defined specifically for the integrated full adder
-/////////////////////// 
-module TH45W2(Z,A,B,C,D,E);
-output Z;
-input A, B, C, D, E;
-   TH45W2P #60 (Z,A,B,C,D,E);
-endmodule
-primitive TH45W2P(Z,A,B,C,D,E);
+primitive THANDEP(Z,A,B,C,D,E);
 output Z;
 input A, B, C, D, E;
 reg Z;
@@ -125,8 +40,8 @@ table
 0  1  0  0  1 : 0 : 0;
 1  1  0  0  1 : 0 : 1;
 0  0  1  0  1 : 0 : 0;
-1  0  1  0  1 : 0 : 1;
-0  1  1  0  1 : 0 : 0;
+1  0  1  0  1 : 0 : 0;
+0  1  1  0  1 : 0 : 1;
 1  1  1  0  1 : 0 : 1;
 0  0  0  1  1 : 0 : 0;
 1  0  0  1  1 : 0 : 1;
@@ -151,8 +66,178 @@ table
 0  0  1  1  0 : 1 : 1;
 1  0  1  1  0 : 1 : 1;
 0  1  1  1  0 : 1 : 1;
+1  1  1  1  0 : 1 : 1;
+0  0  0  0  1 : 1 : 1;
+1  0  0  0  1 : 1 : 1;
+0  1  0  0  1 : 1 : 1;
+1  1  0  0  1 : 1 : 1;
+0  0  1  0  1 : 1 : 1;
+1  0  1  0  1 : 1 : 1;
+0  1  1  0  1 : 1 : 1;
+1  1  1  0  1 : 1 : 1;
+0  0  0  1  1 : 1 : 1;
+1  0  0  1  1 : 1 : 1;
+0  1  0  1  1 : 1 : 1;
+1  1  0  1  1 : 1 : 1;
+0  0  1  1  1 : 1 : 1;
+1  0  1  1  1 : 1 : 1;
+0  1  1  1  1 : 1 : 1;
+1  1  1  1  1 : ? : 1;
+endtable
+endprimitive
+
+/////////////////////// 
+//// THXORE NCL-UDP
+//// 26. Z = ABE + CDE        LDD notation
+//// {[A, B, E], [C, D, E]} -> Z  flow notation
+//// Defined explicitly for full adder B integration
+/////////////////////// 
+module THXORE(Z,A,B,C,D,E);
+output Z;
+input A, B, C, D, E;
+   THXOREP #60 (Z,A,B,C,D,E);
+endmodule
+primitive THXOREP(Z,A,B,C,D,E);
+output Z;
+input A, B, C, D, E;
+reg Z;
+initial Z = 1'b0;
+table
+// A B C D : Z : Z+         
+0  0  0  0  0 : ? : 0;
+1  0  0  0  0 : 0 : 0;
+0  1  0  0  0 : 0 : 0;
+1  1  0  0  0 : 0 : 0;
+0  0  1  0  0 : 0 : 0;
+1  0  1  0  0 : 0 : 0;
+0  1  1  0  0 : 0 : 0;
+1  1  1  0  0 : 0 : 1;
+0  0  0  1  0 : 0 : 0;
+1  0  0  1  0 : 0 : 0;
+0  1  0  1  0 : 0 : 0;
+1  1  0  1  0 : 0 : 0;
+0  0  1  1  0 : 0 : 0;
+1  0  1  1  0 : 0 : 0;
+0  1  1  1  0 : 0 : 0;
+1  1  1  1  0 : 0 : 1;
+0  0  0  0  1 : 0 : 0;
+1  0  0  0  1 : 0 : 0;
+0  1  0  0  1 : 0 : 0;
+1  1  0  0  1 : 0 : 0;
+0  0  1  0  1 : 0 : 0;
+1  0  1  0  1 : 0 : 0;
+0  1  1  0  1 : 0 : 0;
+1  1  1  0  1 : 0 : 1;
+0  0  0  1  1 : 0 : 0;
+1  0  0  1  1 : 0 : 1;
+0  1  0  1  1 : 0 : 0;
+1  1  0  1  1 : 0 : 1;
+0  0  1  1  1 : 0 : 0;
+1  0  1  1  1 : 0 : 1;
+0  1  1  1  1 : 0 : 0;
+1  1  1  1  1 : ? : 1;
+0  0  0  0  0 : ? : 0;
+1  0  0  0  0 : 1 : 1;
+0  1  0  0  0 : 1 : 1;
+1  1  0  0  0 : 1 : 1;
+0  0  1  0  0 : 1 : 1;
+1  0  1  0  0 : 1 : 1;
+0  1  1  0  0 : 1 : 1;
+1  1  1  0  0 : 1 : 1;
+0  0  0  1  0 : 1 : 1;
+1  0  0  1  0 : 1 : 1;
+0  1  0  1  0 : 1 : 1;
+1  1  0  1  0 : 1 : 1;
+0  0  1  1  0 : 1 : 1;
+1  0  1  1  0 : 1 : 1;
+0  1  1  1  0 : 1 : 1;
 1  1  1  1  0 : ? : 1;
-0  0  0  0  1 : ? : 1;
+0  0  0  0  1 : 1 : 1;
+1  0  0  0  1 : 1 : 1;
+0  1  0  0  1 : 1 : 1;
+1  1  0  0  1 : 1 : 1;
+0  0  1  0  1 : 1 : 1;
+1  0  1  0  1 : 1 : 1;
+0  1  1  0  1 : 1 : 1;
+1  1  1  0  1 : 1 : 1;
+0  0  0  1  1 : 1 : 1;
+1  0  0  1  1 : 1 : 1;
+0  1  0  1  1 : 1 : 1;
+1  1  0  1  1 : 1 : 1;
+0  0  1  1  1 : 1 : 1;
+1  0  1  1  1 : 1 : 1;
+0  1  1  1  1 : 1 : 1;
+1  1  1  1  1 : ? : 1;
+endtable
+endprimitive
+
+/////////////////////// 
+//// TH55W22 NCL-UDP
+//// 30. Z = ABE + ACE + ADE + BCDE              LDD notation
+//// {[A, B, C], [A, B, D], [A, B, E], [A, C, D, E]} -> Z  flow notation
+//// Defined specifically for the integrated full adder
+/////////////////////// 
+module TH55W22(Z,A,B,C,D,E);
+output Z;
+input A, B, C, D, E;
+   TH55W22P #60 (Z,A,B,C,D,E);
+endmodule
+primitive TH55W22P(Z,A,B,C,D,E);
+output Z;
+input A, B, C, D, E;
+reg Z;
+initial Z = 1'b0;
+table
+// A B C D E : Z : Z+         
+0  0  0  0  0 : ? : 0;
+1  0  0  0  0 : 0 : 0;
+0  1  0  0  0 : 0 : 0;
+1  1  0  0  0 : 0 : 0;
+0  0  1  0  0 : 0 : 0;
+1  0  1  0  0 : 0 : 0;
+0  1  1  0  0 : 0 : 0;
+1  1  1  0  0 : 0 : 1;
+0  0  0  1  0 : 0 : 0;
+1  0  0  1  0 : 0 : 0;
+0  1  0  1  0 : 0 : 0;
+1  1  0  1  0 : 0 : 1;
+0  0  1  1  0 : 0 : 0;
+1  0  1  1  0 : 0 : 0;
+0  1  1  1  0 : 0 : 0;
+1  1  1  1  0 : 0 : 1;
+0  0  0  0  1 : 0 : 0;
+1  0  0  0  1 : 0 : 0;
+0  1  0  0  1 : 0 : 0;
+1  1  0  0  1 : 0 : 1;
+0  0  1  0  1 : 0 : 0;
+1  0  1  0  1 : 0 : 0;
+0  1  1  0  1 : 0 : 0;
+1  1  1  0  1 : 0 : 1;
+0  0  0  1  1 : 0 : 0;
+1  0  0  1  1 : 0 : 0;
+0  1  0  1  1 : 0 : 0;
+1  1  0  1  1 : 0 : 1;
+0  0  1  1  1 : 0 : 0;
+1  0  1  1  1 : 0 : 1;
+0  1  1  1  1 : 0 : 0;
+1  1  1  1  1 : ? : 1;
+0  0  0  0  0 : ? : 0;
+1  0  0  0  0 : 1 : 1;
+0  1  0  0  0 : 1 : 1;
+1  1  0  0  0 : 1 : 1;
+0  0  1  0  0 : 1 : 1;
+1  0  1  0  0 : 1 : 1;
+0  1  1  0  0 : 1 : 1;
+1  1  1  0  0 : 1 : 1;
+0  0  0  1  0 : 1 : 1;
+1  0  0  1  0 : 1 : 1;
+0  1  0  1  0 : 1 : 1;
+1  1  0  1  0 : 1 : 1;
+0  0  1  1  0 : 1 : 1;
+1  0  1  1  0 : 1 : 1;
+0  1  1  1  0 : 1 : 1;
+1  1  1  1  0 : ? : 1;
+0  0  0  0  1 : 1 : 1;
 1  0  0  0  1 : 1 : 1;
 0  1  0  0  1 : 1 : 1;
 1  1  0  0  1 : 1 : 1;
@@ -793,7 +878,7 @@ table
 1  1  0  1 : 0 : 1;
 0  0  1  1 : 0 : 0;
 1  0  1  1 : 0 : 1;
-0  1  1  1 : 0 : 1;
+0  1  1  1 : 0 : 0;
 1  1  1  1 : ? : 1;
 0  0  0  0 : ? : 0;
 1  0  0  0 : 1 : 1;
@@ -945,13 +1030,13 @@ table
 0  0  1  0 : 0 : 0;
 1  0  1  0 : 0 : 1;
 0  1  1  0 : 0 : 0;
-1  1  1  0 : 0 : 0;
+1  1  1  0 : 0 : 1;
 0  0  0  1 : 0 : 0;
 1  0  0  1 : 0 : 1;
 0  1  0  1 : 0 : 0;
-1  1  0  1 : 0 : 0;
+1  1  0  1 : 0 : 1;
 0  0  1  1 : 0 : 0;
-1  0  1  1 : 0 : 0;
+1  0  1  1 : 0 : 1;
 0  1  1  1 : 0 : 1;
 1  1  1  1 : ? : 1;
 0  0  0  0 : ? : 0;
@@ -1358,7 +1443,7 @@ table
 0  0  0 : ? : 0;
 1  0  0 : 1 : 1;
 0  1  0 : 1 : 1;
-1  1  0 : 1 : 1;
+1  1  0 : ? : 1;
 0  0  1 : 1 : 1;
 1  0  1 : 1 : 1;
 0  1  1 : 1 : 1;
@@ -1487,10 +1572,10 @@ reg Z;
 initial Z = 1'b0;
 table
 // A B : Z : Z+         
-0  0 : 0 : 0;
+0  0 : ? : 0;
 0  1 : 0 : 0;
 1  0 : 0 : 0;
-1  1 : ? : 1;
+1  1 : 0 : 1;
 0  0 : ? : 0;
 0  1 : 1 : 1;
 1  0 : 1 : 1;
@@ -1517,6 +1602,26 @@ table
 1  0 : 1;
 0  1 : 1;
 1  1 : 1;
+endtable
+endprimitive
+
+/////////////////////// 
+//// TH11 NCL-UDP
+//// 2. Z = A    LDD notation
+//// {A} -> Z     flow notation
+/////////////////////// 
+module TH11(Z,A);
+output Z;
+input A;
+  TH11P #10 (Z,A);
+endmodule
+primitive TH11P(Z,A);
+output Z;
+input A;
+table
+// A : Z          
+0 : 0;
+1 : 1;
 endtable
 endprimitive
 
@@ -1560,6 +1665,66 @@ table
 endtable
 endprimitive
 
+module MUTEX(G1, G2, R1, R2);
+input R1, R2;
+output G1, G2;
+wire A1, A2;
+
+  // S/R flip flop
+  nand #3 u0 (A1, R1, A2);
+  nand #2 u1 (A2, R2, A1);
+  //  filter
+  pmos #1 u2 (G1, A2, A1);
+  pmos #1 u3 (G2, A1, A2);
+  nmos #1 u4 (G1, 1'b0, A1);
+  nmos #1 u5 (G2, 1'b0, A2);
+endmodule
+
+module arbiter(output G1, output G2, input R1, input R2, output R, input G, init);
+wire M1, M2, NG1, NG2, P1, P2;
+
+//Arbiter from LDD
+MUTEX  m0( M1, M2, R1, R2);
+THnotN  m1(NG1, G1, init);
+THnotN  m2(NG2, G2, init);
+and   #20 m3(P1, M1, NG2);
+and   #20 m4(P2, M2, NG1);
+TH12   m7(R, P1, P2);
+TH22   m8(G1, P1, G);
+TH22   m9(G2, P2, G);
+endmodule
+
+module freetodual(output [1:0] dual, input dualCOMP, input inR0, output R0COMP, input inR1, output R1COMP, input init);
+wire M0, M1, P0, P1, dual0, dual1, dualenable;
+
+// Arbitrate two free flowing rails into a single dual rail flow
+assign R0COMP = dual[0];
+assign R1COMP = dual[1];
+MUTEX  m0( M0, M1, inR0, inR1);
+THnotN  m1(dual0, dual[0], init);
+THnotN  m2(dual1, dual[1], init);
+and   #20 m3(P0, M0, dual1);
+and   #20 m4(P1, M1, dual0);
+THnotN  m10(dualenable, dualCOMP, init);
+TH22 m11 (dual[0], P0, dualenable);
+TH22 m12 (dual[1], P1, dualenable);
+endmodule
+
+/*
+module arbiter(output G1, output G2, input R1, input R2, init);
+wire G, M1, M2, NG1, NG2, P1, P2;
+
+//Arbiter from LDD
+MUTEX  m0( M1, M2, R1, R2);
+THnotN  m1(NG1, G1, init);
+THnotN  m2(NG2, G2, init);
+and   m3(P1, M1, NG2);
+and   m4(P2, M2, NG1);
+TH12   m7(G, P1, P2);
+TH22   m8(G1, P1, G);
+TH22   m9(G2, P2, G);
+endmodule
+*/
 /// library components////////////
 /*
 module Pipecomponent(output [rails-1:0] Z, input ZCOMP, input [rails-1:0] A, output ACOMP, input init);
